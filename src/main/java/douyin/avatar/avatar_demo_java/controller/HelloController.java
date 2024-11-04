@@ -59,8 +59,8 @@ public class HelloController {
     private ObjectStorageService objectStorageService;
     @GetMapping("/api/object")
     public ResponseEntity<String> objectOperation(){
-        String ak = "AKLTMjY3NTgxN2VjZjczNGJhMDhjM2RjMzBmMzQ3MTU2ZGM";
-        String sk = "WVdZd05XSmlaV05sTmpKaU5HRXdNemswWlRjeE1XUmtZV0UyTm1KbU16Yw==";
+        String ak = "AKLTMmY0MzAxNGM3NDczNGIyY2I0NTBkMjYzMGU4NWY1ODg";
+        String sk = "T1dZek1UTmpNVGd4WldWaU5EUTVOV0U0TWpGa1ltSXdZV0k0TmpRM1ptWQ==";
         return ResponseEntity.ok(objectStorageService.putObjectDemo(ak,sk));
     }
 }
