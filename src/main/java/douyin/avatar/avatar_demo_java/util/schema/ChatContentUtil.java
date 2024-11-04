@@ -6,19 +6,33 @@ import douyin.avatar.avatar_demo_java.config.GlobalPromptConfig;
 import douyin.avatar.avatar_demo_java.request.ChatContext;
 import douyin.avatar.avatar_demo_java.request.Message;
 import douyin.avatar.avatar_demo_java.util.Convertor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatContentUtil {
 
-    public static List<ChatMessage> FromMessages(Message thisMessage, ChatContext chatContext) {
+    private static final Logger logger = LoggerFactory.getLogger(ChatContentUtil.class);
+
+    public static List<ChatMessage> FromMessages(Message thisMessage, ChatContext chatContext, List<String> longHistory) {
         List<ChatMessage> chatMessages = new ArrayList<>();
 
+        // 长期记忆直接merge到system prompt
+        String longHistoryStr = "";
+        if (longHistory != null && !longHistory.isEmpty()) {
+            for (String history : longHistory) {
+                longHistoryStr = String.format("%s%s\n", longHistoryStr, history);
+            }
+        }
+
+        String prompt = String.format(GlobalPromptConfig.PROMPT_STRING, longHistoryStr);
+        logger.info("system prompt: {}", prompt);
         // 设置人设
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setRole(ChatMessageRole.SYSTEM);
-        chatMessage.setContent(GlobalPromptConfig.PROMPT_STRING);
+        chatMessage.setContent(prompt);
         // 加入数组中
         chatMessages.add(chatMessage);
 

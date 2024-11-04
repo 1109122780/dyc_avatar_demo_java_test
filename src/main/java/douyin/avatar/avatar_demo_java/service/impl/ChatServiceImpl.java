@@ -8,7 +8,6 @@ import douyin.avatar.avatar_demo_java.Enum.RoleEnum;
 import douyin.avatar.avatar_demo_java.Enum.SegTypeEnum;
 import douyin.avatar.avatar_demo_java.caller.AIModelApiRestTemplate;
 import douyin.avatar.avatar_demo_java.caller.ExtendApiRestTemplate;
-import douyin.avatar.avatar_demo_java.caller.MemoryApiRestTemplate;
 import douyin.avatar.avatar_demo_java.caller.model.extend.ExtendApiResponse;
 import douyin.avatar.avatar_demo_java.config.GlobalPromptConfig;
 import douyin.avatar.avatar_demo_java.response.CopilotContent;
@@ -35,13 +34,8 @@ public class ChatServiceImpl implements IChatService {
     @Autowired
     private AIModelApiRestTemplate aiModelApiRestTemplate;
 
-    @Autowired
-    private MemoryApiRestTemplate memoryApiRestTemplate;
-
     @Override
     public ChatResponseDTO Chat(ChatDTO chatDTO) throws Exception {
-        // 调用一下记忆能力, demo
-        memoryApiRestTemplate.CallMemoryApiRestMethod(chatDTO);
 
         // 调用外部服务void的case，换成自己的外域api，还有参数 todo
         String apiID = "https://1k58b3nbl3le2-env-bFueXg6P40.service.douyincloud.run/api/user/info";
@@ -59,7 +53,7 @@ public class ChatServiceImpl implements IChatService {
         }
         ChatCompletionRequest streamChatCompletionRequest = ChatCompletionRequest.builder()
                 .model(GlobalPromptConfig.MODEL_EP)
-                .messages(ChatContentUtil.FromMessages(chatDTO.getMessage(), chatDTO.getChatContext()))
+                .messages(ChatContentUtil.FromMessages(chatDTO.getMessage(), chatDTO.getChatContext(), null))
                 .stream(false)
                 .build();
 

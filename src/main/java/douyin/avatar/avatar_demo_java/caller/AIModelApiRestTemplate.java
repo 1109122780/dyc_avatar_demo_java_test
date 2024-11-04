@@ -28,7 +28,7 @@ public class AIModelApiRestTemplate extends ExtendApiRestTplAbstract<ChatComplet
             headMap.put("Cache-Control", "no-cache");
             headMap.put("Connection", "keep-alive");
             // todo
-            // headMap.put("Authorization", "Bearer 3dad2a1f-7c1c-4350-80f8-dd057ffa3aba");
+            headMap.put("Authorization", "Bearer 3dad2a1f-7c1c-4350-80f8-dd057ffa3aba");
             headMap.put("Content-Type", "application/json");
             // 调用sse流式接口
             this.CallSseStreamMethod(API_URL, chatCompletionRequest, headMap, aiModelConsumer);
@@ -43,7 +43,7 @@ public class AIModelApiRestTemplate extends ExtendApiRestTplAbstract<ChatComplet
         // 调用post接口
         headMap.put("Accept", "application/json");
         // todo
-        // headMap.put("Authorization", "Bearer 3dad2a1f-7c1c-4350-80f8-dd057ffa3aba");
+        headMap.put("Authorization", "Bearer 3dad2a1f-7c1c-4350-80f8-dd057ffa3aba");
         headMap.put("Content-Type", "application/json");
         String responseBody = this.PostCallMethod(API_URL, chatCompletionRequest, headMap);
         return JSON.parseObject(responseBody, ChatCompletionResult.class);

@@ -91,7 +91,6 @@ public class OnBoardingServiceImpl implements IOnBoardingService {
                 copilotContent.setSegType(SegTypeEnum.FOLLOWUP);
                 onBoardingResponseDTO.setCopilotContent(copilotContent);
                 onBoardingResponseDTO.setBaseResp(new BaseResp());
-
                 // 发送
                 chunkSendWriter.Send(resp, HttpResponse.SuccessResponse(onBoardingResponseDTO));
                 Thread.sleep(200);
@@ -99,12 +98,10 @@ public class OnBoardingServiceImpl implements IOnBoardingService {
                 logger.error("OnBoarding.send error={}", e.getMessage(), e);
             }
         }
-
         try {
             chunkSendWriter.EndWriteChunked(resp);
         } catch (Exception e) {
             logger.error("OnBoarding.send error={}", e.getMessage(), e);
         }
-
     }
 }

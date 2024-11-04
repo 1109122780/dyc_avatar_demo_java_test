@@ -6,7 +6,7 @@ import douyin.avatar.avatar_demo_java.caller.model.memory.request.MemoryRecallPa
 import douyin.avatar.avatar_demo_java.caller.model.memory.request.MemoryRecallRequest;
 import douyin.avatar.avatar_demo_java.caller.model.memory.response.Memory;
 import douyin.avatar.avatar_demo_java.caller.model.memory.response.MemoryRecallHttpResponse;
-import douyin.avatar.avatar_demo_java.service.dto.ChatDTO;
+import douyin.avatar.avatar_demo_java.service.dto.ChatStreamDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -21,24 +21,24 @@ public class MemoryApiRestTemplate extends ExtendApiRestTplAbstract<MemoryRecall
 
     private static final Logger logger = LoggerFactory.getLogger(MemoryApiRestTemplate.class);
 
-    private static final String MEMORY_API_URL = "https://open-ai.byted.org/dy_open_api/avatar/atomic/api/recall_memory/";
+    private static final String MEMORY_API_URL = "http://open-ai-byted-org.dyc.ivolces.com/dy_open_api/avatar/atomic/api/recall_memory/";
 
     // 调用记忆的api接口
-    public List<String> CallMemoryApiRestMethod(ChatDTO chatDTO) {
+    public List<String> CallMemoryApiRestMethod(ChatStreamDTO chatStreamDTO) {
         List<String> resultList = new ArrayList<>();
         // 封装参数
         MemoryRecallRequest memoryRecallRequest = new MemoryRecallRequest();
         try {
             MemoryRecallParams memoryRecallParams = new MemoryRecallParams();
             memoryRecallParams.setDsl(null);
-            memoryRecallParams.setQuery(chatDTO.getMessage().getMessageContent().getContent());
+            memoryRecallParams.setQuery(chatStreamDTO.getMessage().getMessageContent().getContent());
             memoryRecallParams.setLimit(10);
 
             AvatarRequestInfo avatarRequestInfo = new AvatarRequestInfo();
-            avatarRequestInfo.setBizID(chatDTO.getBizContext().getBizID());
-            avatarRequestInfo.setTrafficSource(chatDTO.getCommonContext().getTrafficSource());
-            avatarRequestInfo.setOpenID(chatDTO.getCommonContext().getUserInfo().getOpenID());
-            avatarRequestInfo.setAvatarAppID(chatDTO.getCommonContext().getAvatarInfo().getAvatarAppID());
+            avatarRequestInfo.setBizID(chatStreamDTO.getBizContext().getBizID());
+            avatarRequestInfo.setTrafficSource(chatStreamDTO.getCommonContext().getTrafficSource());
+            avatarRequestInfo.setOpenID(chatStreamDTO.getCommonContext().getUserInfo().getOpenID());
+            avatarRequestInfo.setAvatarAppID(chatStreamDTO.getCommonContext().getAvatarInfo().getAvatarAppID());
             avatarRequestInfo.setTenantID("ebtest_1");
             avatarRequestInfo.setProviderID("ebtest_1");
 
