@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 定义控制台输出的Appender -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 使用withJansi来支持彩色输出 -->
+        <withJansi>true</withJansi>
+        <encoder>
+            <!-- 定义不同级别日志的颜色和格式 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{logId}] [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- 设置根日志记录器，使用控制台Appender -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>
